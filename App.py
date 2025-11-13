@@ -2960,12 +2960,7 @@ elif st.session_state.seccion_actual == "datos":
     except Exception as e:
         st.error(f"Error al generar la gráfica: {str(e)}")
 
-
-
-
-
 # SECCIÓN DATOS FUNDAMENTALES 
-
 elif st.session_state.seccion_actual == "fundamentales":
     st.header(f"💰 Datos Fundamentales Completos - {nombre}")
     
@@ -5260,13 +5255,6 @@ elif st.session_state.seccion_actual == "fundamentales":
         """)
         
         st.success("**🎯 TOTAL: 82 MÉTRICAS FUNDAMENTALES COMPLETAMENTE EXPLICADAS**")
-
-
-
-
-
-
-
 
 # SECCIÓN NOTICIAS 
 elif st.session_state.seccion_actual == "noticias":
