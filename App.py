@@ -10753,6 +10753,7 @@ elif st.session_state.seccion_actual == "macro":
 if 'seccion_actual' not in st.session_state:
     st.session_state.seccion_actual = "global"
 
+
 # SECCIÓN DE MERCADOS GLOBALES
 if st.session_state.seccion_actual == "global":
     st.header("📈 Mercados Globales en Tiempo Real")
@@ -11766,6 +11767,10 @@ if st.session_state.seccion_actual == "global":
         if st.button("🔄 Actualizar Toda La Información", use_container_width=True, type="primary"):
             st.cache_data.clear()
             st.rerun()
+
+
+
+
 
 # BOTONES ADICIONALES EN EL FOOTER
 st.markdown("---")
