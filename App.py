@@ -4126,6 +4126,7 @@ elif st.session_state.seccion_actual == "fundamentales":
                 if st.button("🔄 Intentar nuevamente", use_container_width=True, key="reintentar_fundamentales"):
                     st.rerun()
     
+    #
     with tab2:
         st.header("🎓 Educación Financiera - Guía Completa de 82 Métricas")
         st.write("**Explicación DETALLADA de cada métrica: qué es, para qué sirve, ventajas y desventajas**")
@@ -4138,7 +4139,9 @@ elif st.session_state.seccion_actual == "fundamentales":
             "📊 EFICIENCIA OPERATIVA (10 métricas)",
             "📈 CRECIMIENTO (8 métricas)",
             "📊 INDICADORES TÉCNICOS (10 métricas)",
-            "🏢 DATOS CORPORATIVOS (8 métricas)"
+            "🏢 DATOS CORPORATIVOS (8 métricas)",
+            "⚡ MÉTRICAS AVANZADAS DE RIESGO",
+            "💡 CONSEJOS PRÁCTICOS DE INVERSIÓN"
         ]
         
         categoria = st.selectbox("Selecciona la categoría:", categorias)
@@ -4334,32 +4337,6 @@ elif st.session_state.seccion_actual == "fundamentales":
                     "ejemplo": "Precio $50, Valor contable por acción $40 → P/B = 1.25"
                 },
                 
-                "P/C": {
-                    "definicion": "**Precio/Efectivo** - Valoración respecto al efectivo en balance",
-                    "calculacion": "Precio de la acción ÷ Efectivo por acción",
-                    "interpretacion": """
-                    **¿Qué significa?**
-                    - **P/C bajo**: Mucho efectivo relativo al precio (posible oportunidad)
-                    - **P/C alto**: Poca reserva de efectivo relativa al precio
-                    
-                    **Ventajas:**
-                    - Mide el colchón de seguridad en efectivo
-                    - Útil para identificar empresas con fuerte posición de caja
-                    - El efectivo es el activo más líquido
-                    
-                    **Desventajas:**
-                    - No considera cómo se usa el efectivo
-                    - El efectivo puede estar destinado a obligaciones
-                    - Puede ser temporal (venta de activos, emisión de deuda)
-                    
-                    **¿Para qué sirve?**
-                    - Evaluar la solidez financiera a corto plazo
-                    - Identificar empresas con exceso de efectivo
-                    - Analizar oportunidades de recompra de acciones o dividendos
-                    """,
-                    "ejemplo": "Precio $100, Efectivo por acción $25 → P/C = 4"
-                },
-                
                 "P/FCF": {
                     "definicion": "**Precio/Flujo de Caja Libre** - Valoración respecto al flujo de caja generado",
                     "calculacion": "Market Cap ÷ Flujo de Caja Libre anual",
@@ -4387,6 +4364,48 @@ elif st.session_state.seccion_actual == "fundamentales":
                     "ejemplo": "Market Cap $1B, FCF $100M → P/FCF = 10"
                 },
                 
+                "P/C": {
+                    "definicion": "**Precio/Efectivo** - Valoración respecto al efectivo en balance",
+                    "calculacion": "Precio de la acción ÷ Efectivo por acción",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **P/C bajo**: Mucho efectivo relativo al precio (posible oportunidad)
+                    - **P/C alto**: Poca reserva de efectivo relativa al precio
+                    - **P/C < 5**: Generalmente considerado atractivo
+                    - **P/C > 10**: Puede indicar sobrevaloración
+                    
+                    **Ventajas:**
+                    - Mide el colchón de seguridad en efectivo
+                    - Útil para identificar empresas con fuerte posición de caja
+                    - El efectivo es el activo más líquido y seguro
+                    - Bueno para evaluar valoración en situaciones de crisis
+                    
+                    **Desventajas:**
+                    - No considera cómo se usa el efectivo
+                    - El efectivo puede estar destinado a obligaciones específicas
+                    - Puede ser temporal (venta de activos, emisión de deuda)
+                    - No diferencia entre efectivo operativo y no operativo
+                    
+                    **Interpretación por sectores:**
+                    - **Tecnología**: P/C 5-15 (normal por alto crecimiento)
+                    - **Manufactura**: P/C 3-8 (menos efectivo intensivo)
+                    - **Financieras**: P/C 1-3 (mucha regulación de capital)
+                    - **Biotech**: P/C 10-20 (queman efectivo en desarrollo)
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar la solidez financiera a corto plazo
+                    - Identificar empresas con exceso de efectivo
+                    - Analizar oportunidades de recompra de acciones o dividendos
+                    - Valoración en adquisiciones (empresas con mucho cash)
+                    
+                    **Señales de alerta:**
+                    - P/C muy alto con poco crecimiento
+                    - Efectivo decreciente con P/C constante
+                    - Empresas que queman cash rápidamente
+                    """,
+                    "ejemplo": "Precio $100, Efectivo por acción $25 → P/C = 4 (atractivo)\nPrecio $50, Efectivo por acción $3 → P/C = 16.7 (elevado)"
+                },
+
                 "EV/EBITDA": {
                     "definicion": "**Enterprise Value/EBITDA** - Valor empresa completa sobre ganancias operativas",
                     "calculacion": "Enterprise Value ÷ EBITDA",
@@ -5158,7 +5177,1554 @@ elif st.session_state.seccion_actual == "fundamentales":
                     if 'ejemplo' in detalles:
                         st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
 
-        # ... (las demás categorías continuarían aquí con el mismo formato)
+        elif categoria == "🏦 DEUDA Y LIQUIDEZ (12 métricas)":
+            st.subheader("🏦 DEUDA Y LIQUIDEZ - 12 Métricas")
+            
+            metricas = {
+                "Total Debt": {
+                    "definicion": "**Deuda Total** - Suma de deuda a corto y largo plazo",
+                    "calculacion": "Deuda Corto Plazo + Deuda Largo Plazo",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Deuda creciente**: Posible expansión agresiva o problemas de caja
+                    - **Deuda decreciente**: Desapalancamiento, mejora financiera
+                    - **Sin deuda**: Empresa conservadora (puede perder oportunidades)
+                    
+                    **Ventajas:**
+                    - Muestra la carga total de deuda
+                    - Fácil de entender
+                    - Base para otros ratios de deuda
+                    
+                    **Desventajas:**
+                    - No considera la capacidad de pago
+                    - No diferencia entre tipos de deuda
+                    - Puede variar por ciclos empresariales
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar el apalancamiento total
+                    - Comparar con patrimonio y activos
+                    - Analizar tendencias de financiación
+                    """,
+                    "ejemplo": "Deuda corto plazo $50M + Deuda largo plazo $150M = Total Debt $200M"
+                },
+                
+                "Debt/Eq": {
+                    "definicion": "**Ratio Deuda/Patrimonio** - Relación entre deuda total y capital propio",
+                    "calculacion": "Deuda Total ÷ Patrimonio Neto",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<0.5**: Conservador
+                    - **0.5-1.0**: Moderado
+                    - **>1.0**: Agresivo
+                    - **>2.0**: Muy riesgoso
+                    
+                    **Ventajas:**
+                    - Muestra estructura de capital
+                    - Útil para comparar empresas del mismo sector
+                    - Indica política financiera
+                    
+                    **Desventajas:**
+                    - No considera el costo de la deuda
+                    - Puede variar por valoración de patrimonio
+                    - Sectores intensivos en capital pueden tener ratios altos normales
+                    
+                    **Sectores típicos:**
+                    - Utilities: 1.0-1.5
+                    - Telecom: 1.5-2.0
+                    - Tech: 0.2-0.8
+                    - Bancos: 3.0+ (estructura diferente)
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar riesgo financiero
+                    - Comparar políticas de financiación
+                    - Identificar posibles problemas de solvencia
+                    """,
+                    "ejemplo": "Deuda $200M, Patrimonio $250M → Debt/Eq = 0.8"
+                },
+                
+                "LT Debt/Eq": {
+                    "definicion": "**Deuda Largo Plazo/Patrimonio** - Deuda a largo plazo vs capital",
+                    "calculacion": "Deuda Largo Plazo ÷ Patrimonio Neto",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Financiación estable a largo plazo
+                    - **Bajo**: Poca deuda estructural
+                    - **Creciente**: Más financiación vía deuda
+                    
+                    **Ventajas:**
+                    - Enfocado en deuda estructural
+                    - Menos volátil que deuda total
+                    - Mejor para análisis de largo plazo
+                    
+                    **Desventajas:**
+                    - Ignora deuda a corto plazo
+                    - No considera vencimientos
+                    - Puede enmascarar problemas de liquidez
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar estructura de capital permanente
+                    - Analizar financiación de proyectos largos
+                    - Comparar estabilidad financiera
+                    """,
+                    "ejemplo": "Deuda LP $150M, Patrimonio $250M → LT Debt/Eq = 0.6"
+                },
+                
+                "Current Ratio": {
+                    "definicion": "**Ratio Corriente** - Capacidad para pagar obligaciones a corto plazo",
+                    "calculacion": "Activos Corrientes ÷ Pasivos Corrientes",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<1.0**: Posibles problemas de liquidez
+                    - **1.0-1.5**: Aceptable
+                    - **1.5-2.0**: Bueno
+                    - **>2.0**: Excelente (pero puede indicar activos ociosos)
+                    
+                    **Ventajas:**
+                    - Simple y ampliamente usado
+                    - Buen indicador de salud a corto plazo
+                    - Fácil de calcular
+                    
+                    **Desventajas:**
+                    - No considera calidad de activos corrientes
+                    - El inventario puede no ser líquido
+                    - Puede variar estacionalmente
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar liquidez inmediata
+                    - Detectar posibles problemas de pago
+                    - Comparar con competidores del sector
+                    """,
+                    "ejemplo": "Activos corrientes $500k, Pasivos corrientes $300k → Current Ratio = 1.67"
+                },
+                
+                "Quick Ratio": {
+                    "definicion": "**Ratio Rápido** - Liquidez inmediata excluyendo inventario",
+                    "calculacion": "(Activos Corrientes - Inventario) ÷ Pasivos Corrientes",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<0.5**: Muy bajo
+                    - **0.5-1.0**: Aceptable
+                    - **>1.0**: Bueno
+                    - **>1.5**: Excelente
+                    
+                    **Ventajas:**
+                    - Más conservador que Current Ratio
+                    - Excluye inventario (menos líquido)
+                    - Mejor indicador de liquidez real
+                    
+                    **Desventajas:**
+                    - Puede ser demasiado conservador
+                    - No considera rotación de inventario
+                    - Algunas empresas dependen del inventario
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar capacidad de pago inmediata
+                    - Análisis más realista de liquidez
+                    - Detectar dependencia del inventario
+                    """,
+                    "ejemplo": "Activos corrientes $500k, Inventario $200k, Pasivos $300k → Quick Ratio = 1.0"
+                },
+                
+                "Cash/Share": {
+                    "definicion": "**Efectivo por Acción** - Reservas de efectivo por cada acción",
+                    "calculacion": "Efectivo y Equivalentes ÷ Acciones en Circulación",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Fuertes reservas, posibles dividendos especiales o recompras
+                    - **Bajo**: Poco colchón de seguridad
+                    - **Creciente**: Acumulación de caja
+                    
+                    **Ventajas:**
+                    - Muestra colchón de seguridad por acción
+                    - Útil para valoración
+                    - Indica capacidad para oportunidades
+                    
+                    **Desventajas:**
+                    - No considera deuda
+                    - El efectivo puede estar destinado a obligaciones
+                    - Demasiado efectivo puede indicar falta de oportunidades de inversión
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar margen de seguridad
+                    - Identificar posibles recompras o dividendos
+                    - Valoración en adquisiciones
+                    """,
+                    "ejemplo": "Efectivo $100M, 10M acciones → Cash/Share = $10"
+                },
+                
+                "Cash Flow/Share": {
+                    "definicion": "**Flujo de Caja por Acción** - Flujo operativo generado por acción",
+                    "calculacion": "Flujo de Caja Operativo ÷ Acciones en Circulación",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Fuerte generación de caja por acción
+                    - **Creciente**: Mejora en eficiencia operativa
+                    - **> EPS**: Calidad de ganancias alta
+                    
+                    **Ventajas:**
+                    - Basado en caja real (no ganancias contables)
+                    - Mejor indicador de salud financiera
+                    - Difícil de manipular
+                    
+                    **Desventajas:**
+                    - Puede ser volátil
+                    - No considera inversiones de capital
+                    - Sensible a cambios en capital de trabajo
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar calidad de ganancias
+                    - Calcular capacidad de pago de dividendos
+                    - Comparar con EPS
+                    """,
+                    "ejemplo": "FCF Operativo $80M, 10M acciones → Cash Flow/Share = $8"
+                },
+                
+                "Total Cash": {
+                    "definicion": "**Efectivo Total** - Dinero disponible en caja y equivalentes",
+                    "calculacion": "Efectivo + Equivalentes de Efectivo",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Fuertes reservas líquidas
+                    - **Bajo**: Dependencia de financiación externa
+                    - **Óptimo**: Suficiente para operar + colchón de seguridad
+                    
+                    **Ventajas:**
+                    - Muestra liquidez absoluta
+                    - Fácil de entender
+                    - Base para otros cálculos
+                    
+                    **Desventajas:**
+                    - No considera obligaciones
+                    - Puede estar en el extranjero con restricciones
+                    - Demasiado efectivo puede ser ineficiente
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar solvencia a corto plazo
+                    - Analizar capacidad para oportunidades
+                    - Preparación para crisis
+                    """,
+                    "ejemplo": "Efectivo $50M + Equivalentes $30M = Total Cash $80M"
+                },
+                
+                "Total Cash/Share": {
+                    "definicion": "**Efectivo Total por Acción** - Similar a Cash/Share pero incluye equivalentes",
+                    "calculacion": "Total Cash ÷ Acciones en Circulación",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Comparación con precio**: Si Cash/Share es alto vs precio, posible oportunidad
+                    - **Tendencia**: Creciente es positivo
+                    - **Sector**: Tech suele tener más cash que industriales
+                    
+                    **Ventajas:**
+                    - Visión completa de liquidez por acción
+                    - Útil para valoración
+                    - Bueno para análisis comparativo
+                    
+                    **Desventajas:**
+                    - No considera uso del efectivo
+                    - Puede incluir efectivo restringido
+                    - No diferencia entre efectivo operativo y no operativo
+                    
+                    **¿Para qué sirve?**
+                    - Valoración relativa
+                    - Identificar empresas con exceso de caja
+                    - Evaluar potencial de recompra de acciones
+                    """,
+                    "ejemplo": "Total Cash $80M, 10M acciones → Total Cash/Share = $8"
+                },
+                
+                "Working Capital": {
+                    "definicion": "**Capital de Trabajo** - Recursos disponibles para operaciones diarias",
+                    "calculacion": "Activos Corrientes - Pasivos Corrientes",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Positivo**: Capacidad para operar sin problemas
+                    - **Negativo**: Posibles problemas de liquidez
+                    - **Creciente**: Mejora en gestión operativa
+                    
+                    **Ventajas:**
+                    - Muestra salud operativa a corto plazo
+                    - Indica eficiencia en gestión de capital de trabajo
+                    - Buen predictor de problemas financieros
+                    
+                    **Desventajas:**
+                    - No considera calidad de activos
+                    - Puede ser manipulado con timing de pagos/cobros
+                    - Varía por estacionalidad
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar salud operativa a corto plazo
+                    - Detectar posibles problemas de liquidez
+                    - Analizar eficiencia en gestión de capital
+                    """,
+                    "ejemplo": "Activos corrientes $500k, Pasivos corrientes $300k → Working Capital = $200k"
+                },
+                
+                "Interest Coverage": {
+                    "definicion": "**Cobertura de Intereses** - Capacidad para pagar intereses de la deuda",
+                    "calculacion": "EBIT ÷ Gastos por Intereses",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<1.0**: No cubre intereses (muy peligroso)
+                    - **1.0-1.5**: Muy justo
+                    - **1.5-3.0**: Aceptable
+                    - **>3.0**: Bueno
+                    - **>5.0**: Excelente
+                    
+                    **Ventajas:**
+                    - Mide capacidad de servicio de deuda
+                    - Buen predictor de problemas financieros
+                    - Fácil de calcular
+                    
+                    **Desventajas:**
+                    - No considera amortización de principal
+                    - Basado en EBIT (no cash flow)
+                    - Puede variar con tipos de interés
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar riesgo de impago
+                    - Comparar capacidad de endeudamiento
+                    - Análisis de solvencia
+                    """,
+                    "ejemplo": "EBIT $50M, Intereses $10M → Interest Coverage = 5.0"
+                },
+                
+                "Total Debt/EBITDA": {
+                    "definicion": "**Deuda Total/EBITDA** - Años necesarios para pagar deuda con EBITDA",
+                    "calculacion": "Deuda Total ÷ EBITDA",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<3.0**: Conservador
+                    - **3.0-5.0**: Moderado
+                    - **5.0-7.0**: Alto
+                    - **>7.0**: Muy riesgoso
+                    
+                    **Ventajas:**
+                    - Muy usado por agencias de rating
+                    - Considera capacidad operativa de generar caja
+                    - Bueno para comparar entre sectores
+                    
+                    **Desventajas:**
+                    - El EBITDA no es flujo de caja
+                    - No considera inversiones de capital
+                    - Puede variar con ciclo económico
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar sostenibilidad de la deuda
+                    - Comparar políticas de endeudamiento
+                    - Análisis de riesgo crediticio
+                    """,
+                    "ejemplo": "Deuda Total $200M, EBITDA $50M → Debt/EBITDA = 4.0"
+                }
+            }
+            
+            for metrica, detalles in metricas.items():
+                with st.expander(f"**{metrica}**"):
+                    st.write(f"**📖 DEFINICIÓN:** {detalles['definicion']}")
+                    st.write(f"**🧮 CÁLCULO:** {detalles['calculacion']}")
+                    st.markdown("**📊 INTERPRETACIÓN DETALLADA:**")
+                    st.write(detalles['interpretacion'])
+                    if 'ejemplo' in detalles:
+                        st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
+
+        elif categoria == "📊 EFICIENCIA OPERATIVA (10 métricas)":
+            st.subheader("📊 EFICIENCIA OPERATIVA - 10 Métricas")
+            
+            metricas = {
+                "Asset Turnover": {
+                    "definicion": "**Rotación de Activos** - Eficiencia en uso de activos para generar ventas",
+                    "calculacion": "Ventas ÷ Activos Totales Promedio",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Eficiente uso de activos
+                    - **Bajo**: Activos subutilizados
+                    - **Creciente**: Mejora en eficiencia
+                    
+                    **Ventajas:**
+                    - Mide eficiencia operativa general
+                    - Bueno para comparar empresas del mismo sector
+                    - Refleja calidad de gestión
+                    
+                    **Desventajas:**
+                    - Varía mucho entre sectores
+                    - Puede estar influido por valoración de activos
+                    - No considera rentabilidad
+                    
+                    **Sectores típicos:**
+                    - Retail: 2.0-3.0 (alta rotación)
+                    - Manufacturing: 0.8-1.2
+                    - Utilities: 0.3-0.5 (activos intensivos)
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia operativa
+                    - Comparar gestión entre competidores
+                    - Identificar mejoras en utilización de activos
+                    """,
+                    "ejemplo": "Ventas $1B, Activos promedio $500M → Asset Turnover = 2.0"
+                },
+                
+                "Inventory Turnover": {
+                    "definicion": "**Rotación de Inventario** - Veces que se renueva el inventario anual",
+                    "calculacion": "Costo de Ventas ÷ Inventario Promedio",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Gestión eficiente de inventario
+                    - **Bajo**: Exceso de inventario o ventas lentas
+                    - **Óptimo**: Balance entre disponibilidad y costos
+                    
+                    **Ventajas:**
+                    - Mide eficiencia en gestión de inventario
+                    - Buen predictor de problemas operativos
+                    - Sensible a cambios en demanda
+                    
+                    **Desventajas:**
+                    - Varía por estacionalidad
+                    - Depende del tipo de negocio
+                    - Puede ser manipulado con valoración de inventario
+                    
+                    **Sectores típicos:**
+                    - Grocery: 10-15
+                    - Retail: 4-8
+                    - Manufacturing: 2-4
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia operativa
+                    - Detectar problemas de ventas
+                    - Optimizar niveles de inventario
+                    """,
+                    "ejemplo": "Costo ventas $600M, Inventario promedio $100M → Inventory Turnover = 6.0"
+                },
+                
+                "Receivables Turnover": {
+                    "definicion": "**Rotación de Cuentas por Cobrar** - Eficiencia en cobro a clientes",
+                    "calculacion": "Ventas a Crédito ÷ Cuentas por Cobrar Promedio",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Cobros rápidos (eficiente)
+                    - **Bajo**: Cobros lentos (posibles problemas)
+                    - **Decreciente**: Posible deterioro de calidad de clientes
+                    
+                    **Ventajas:**
+                    - Mide eficiencia en gestión de crédito
+                    - Indicador de calidad de cartera
+                    - Sensible a cambios en políticas de crédito
+                    
+                    **Desventajas:**
+                    - Necesita datos de ventas a crédito (no siempre disponibles)
+                    - Puede variar por estacionalidad
+                    - No considera morosidad
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar políticas de crédito
+                    - Detectar problemas de cobranza
+                    - Comparar con términos de pago ofrecidos
+                    """,
+                    "ejemplo": "Ventas crédito $400M, Cuentas cobrar promedio $50M → Receivables Turnover = 8.0"
+                },
+                
+                "Days Inventory": {
+                    "definicion": "**Días de Inventario** - Días promedio que permanece el inventario",
+                    "calculacion": "365 ÷ Inventory Turnover",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Bajo**: Inventario que se mueve rápido
+                    - **Alto**: Inventario lento o excesivo
+                    - **Óptimo**: Balance entre disponibilidad y costos
+                    
+                    **Ventajas:**
+                    - Más intuitivo que turnover
+                    - Fácil de comparar con términos de pago
+                    - Bueno para gestión operativa
+                    
+                    **Desventajas:**
+                    - Mismo que Inventory Turnover
+                    - Sensible a estacionalidad
+                    - Puede variar por mix de productos
+                    
+                    **Sectores típicos:**
+                    - Fast food: 2-5 días
+                    - Retail: 30-60 días
+                    - Manufacturing: 60-90 días
+                    
+                    **¿Para qué sirve?**
+                    - Gestión de niveles de inventario
+                    - Evaluar eficiencia operativa
+                    - Detectar productos obsoletos
+                    """,
+                    "ejemplo": "Inventory Turnover 6 → Days Inventory = 61 días"
+                },
+                
+                "Days Sales Outstanding": {
+                    "definicion": "**Días de Ventas Pendientes** - Días promedio para cobrar ventas",
+                    "calculacion": "365 ÷ Receivables Turnover",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Bajo**: Cobros rápidos (bueno)
+                    - **Alto**: Cobros lentos (malo)
+                    - **Comparar con términos**: Si DSO > términos, problemas de cobro
+                    
+                    **Ventajas:**
+                    - Fácil de entender y gestionar
+                    - Bueno para seguimiento operativo
+                    - Sensible a cambios en políticas
+                    
+                    **Desventajas:**
+                    - Puede variar por mix de clientes
+                    - Sensible a estacionalidad
+                    - No considera morosidad
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia de cobranza
+                    - Gestionar capital de trabajo
+                    - Detectar problemas con clientes
+                    """,
+                    "ejemplo": "Receivables Turnover 8 → DSO = 46 días"
+                },
+                
+                "Payables Period": {
+                    "definicion": "**Período de Pago a Proveedores** - Días promedio para pagar proveedores",
+                    "calculacion": "365 ÷ (Compras ÷ Cuentas por Pagar Promedio)",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Paga lentamente (usa proveedores como financiación)
+                    - **Bajo**: Paga rápidamente (puede perder descuentos)
+                    - **Óptimo**: Balance entre relaciones y costos
+                    
+                    **Ventajas:**
+                    - Mide gestión de proveedores
+                    - Indica poder de negociación
+                    - Afecta capital de trabajo
+                    
+                    **Desventajas:**
+                    - Datos de compras no siempre disponibles
+                    - Puede variar por relaciones estratégicas
+                    - No considera descuentos por pronto pago
+                    
+                    **¿Para qué sirve?**
+                    - Optimizar capital de trabajo
+                    - Evaluar relaciones con proveedores
+                    - Comparar con términos de pago
+                    """,
+                    "ejemplo": "Compras $300M, Cuentas pagar $50M → Payables Period = 61 días"
+                },
+                
+                "Cash Conversion Cycle": {
+                    "definicion": "**Ciclo de Conversión de Efectivo** - Días desde pago a proveedores hasta cobro de clientes",
+                    "calculacion": "Days Inventory + DSO - Payables Period",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Positivo**: Necesita financiar operaciones
+                    - **Negativo**: Proveedores financian operaciones (ideal)
+                    - **Bajo**: Eficiente gestión de capital de trabajo
+                    
+                    **Ventajas:**
+                    - Mide eficiencia global de capital de trabajo
+                    - Buen predictor de necesidades de financiación
+                    - Refleja calidad de gestión operativa
+                    
+                    **Desventajas:**
+                    - Complejo de calcular
+                    - Requiere múltiples datos
+                    - Puede variar estacionalmente
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia operativa global
+                    - Gestionar necesidades de financiación
+                    - Comparar con competidores
+                    """,
+                    "ejemplo": "DI 61 + DSO 46 - PP 61 = CCC 46 días"
+                },
+                
+                "Fixed Asset Turnover": {
+                    "definicion": "**Rotación de Activos Fijos** - Eficiencia en uso de activos fijos",
+                    "calculacion": "Ventas ÷ Activos Fijos Netos Promedio",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Uso intensivo de activos fijos
+                    - **Bajo**: Activos fijos subutilizados
+                    - **Creciente**: Mejora en utilización
+                    
+                    **Ventajas:**
+                    - Enfocado en activos productivos
+                    - Bueno para empresas intensivas en capital
+                    - Refleja decisiones de inversión
+                    
+                    **Desventajas:**
+                    - Sensible a métodos de depreciación
+                    - Varía por antigüedad de activos
+                    - No considera mantenimiento
+                    
+                    **Sectores típicos:**
+                    - Retail: 3-5
+                    - Manufacturing: 1-2
+                    - Utilities: 0.3-0.6
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia de inversiones en activos fijos
+                    - Comparar utilización de capacidad
+                    - Análisis de decisiones de capex
+                    """,
+                    "ejemplo": "Ventas $1B, Activos fijos promedio $400M → Fixed Asset Turnover = 2.5"
+                },
+                
+                "R&D/Sales": {
+                    "definicion": "**Gastos I+D/Ventas** - Porcentaje de ventas invertido en investigación",
+                    "calculacion": "Gastos de I+D ÷ Ventas × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Empresa innovadora, orientada al futuro
+                    - **Bajo**: Empresa madura, poco innovación
+                    - **Óptimo**: Balance entre innovación y rentabilidad
+                    
+                    **Ventajas:**
+                    - Mide compromiso con innovación
+                    - Bueno para empresas growth
+                    - Indicador de ventajas competitivas futuras
+                    
+                    **Desventajas:**
+                    - No garantiza resultados
+                    - Puede ser gasto ineficiente
+                    - Dificil de comparar entre sectores
+                    
+                    **Sectores típicos:**
+                    - Biotech: 15-25%
+                    - Software: 10-20%
+                    - Pharma: 12-18%
+                    - Industrial: 2-5%
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar estrategia de innovación
+                    - Comparar con competidores
+                    - Analizar sostenibilidad de ventajas competitivas
+                    """,
+                    "ejemplo": "I+D $50M, Ventas $500M → R&D/Sales = 10%"
+                },
+                
+                "SG&A/Sales": {
+                    "definicion": "**Gastos Generales/Ventas** - Eficiencia en gastos operativos",
+                    "calculacion": "Gastos de Venta, Generales y Administrativos ÷ Ventas × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Estructura costosa, posible ineficiencia
+                    - **Bajo**: Estructura lean, eficiente
+                    - **Decreciente**: Mejora en eficiencia operativa
+                    
+                    **Ventajas:**
+                    - Mide eficiencia en gastos operativos
+                    - Bueno para detectar burocracia
+                    - Sensible a economías de escala
+                    
+                    **Desventajas:**
+                    - Puede incluir gastos estratégicos
+                    - Varía por modelo de negocio
+                    - Reducciones excesivas pueden dañar crecimiento
+                    
+                    **Sectores típicos:**
+                    - Software: 20-30%
+                    - Retail: 15-25%
+                    - Manufacturing: 10-15%
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar eficiencia operativa
+                    - Identificar oportunidades de mejora
+                    - Comparar estructura de costos
+                    """,
+                    "ejemplo": "SG&A $120M, Ventas $500M → SG&A/Sales = 24%"
+                }
+            }
+            
+            for metrica, detalles in metricas.items():
+                with st.expander(f"**{metrica}**"):
+                    st.write(f"**📖 DEFINICIÓN:** {detalles['definicion']}")
+                    st.write(f"**🧮 CÁLCULO:** {detalles['calculacion']}")
+                    st.markdown("**📊 INTERPRETACIÓN DETALLADA:**")
+                    st.write(detalles['interpretacion'])
+                    if 'ejemplo' in detalles:
+                        st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
+
+        elif categoria == "📈 CRECIMIENTO (8 métricas)":
+            st.subheader("📈 CRECIMIENTO - 8 Métricas")
+            
+            metricas = {
+                "Sales Growth 5Y": {
+                    "definicion": "**Crecimiento de Ventas 5 Años** - Tasa crecimiento anual compuesto",
+                    "calculacion": "(Ventas año actual ÷ Ventas año base)^(1/5) - 1",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<5%**: Crecimiento lento (madurez)
+                    - **5-15%**: Crecimiento moderado
+                    - **>15%**: Crecimiento rápido
+                    - **Negativo**: Contracción
+                    
+                    **Ventajas:**
+                    - Muestra tendencia de largo plazo
+                    - Menos volátil que anual
+                    - Buen indicador de momentum
+                    
+                    **Desventajas:**
+                    - Puede enmascarar cambios recientes
+                    - Sensible al año base elegido
+                    - No considera adquisiciones orgánicas vs inorgánicas
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar trayectoria histórica
+                    - Comparar con expectativas futuras
+                    - Análisis de madurez del negocio
+                    """,
+                    "ejemplo": "Ventas crecieron de $200M a $400M en 5 años → 15% CAGR"
+                },
+                
+                "EPS Growth 5Y": {
+                    "definicion": "**Crecimiento EPS 5 Años** - Tasa crecimiento ganancias por acción",
+                    "calculacion": "(EPS año actual ÷ EPS año base)^(1/5) - 1",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Consistente >10%**: Empresa growth de calidad
+                    - **Volátil**: Resultados inconsistentes
+                    - **Decreciente**: Posible saturación o problemas
+                    
+                    **Ventajas:**
+                    - Enfocado en valor por acción
+                    - Considera efecto de recompras
+                    - Mejor que crecimiento de beneficio neto
+                    
+                    **Desventajas:**
+                    - Puede ser afectado por eventos extraordinarios
+                    - Sensible a cambios en número de acciones
+                    - No considera calidad de ganancias
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar creación de valor histórico
+                    - Calcular PEG ratio
+                    - Proyectar crecimiento futuro
+                    """,
+                    "ejemplo": "EPS creció de $2 a $4 en 5 años → 15% CAGR"
+                },
+                
+                "Sales Growth Q/Q": {
+                    "definicion": "**Crecimiento Ventas Trimestral** - Cambio vs trimestre anterior",
+                    "calculacion": "(Ventas Q actual - Ventas Q anterior) ÷ Ventas Q anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Positivo**: Momentum positivo
+                    - **Negativo**: Desaceleración
+                    - **Aceleración**: Crecimiento cada vez más rápido
+                    - **Desaceleración**: Pérdida de momentum
+                    
+                    **Ventajas:**
+                    - Muestra momentum reciente
+                    - Sensible a cambios en el negocio
+                    - Útil para trading
+                    
+                    **Desventajas:**
+                    - Muy volátil
+                    - Sensible a estacionalidad
+                    - Puede estar distorsionado por eventos únicos
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar performance reciente
+                    - Identificar cambios en tendencia
+                    - Timing de decisiones de inversión
+                    """,
+                    "ejemplo": "Ventas Q1 $250M, Q2 $275M → Crecimiento 10%"
+                },
+                
+                "EPS Growth Q/Q": {
+                    "definicion": "**Crecimiento EPS Trimestral** - Cambio ganancias vs trimestre anterior",
+                    "calculacion": "(EPS Q actual - EPS Q anterior) ÷ EPS Q anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Beat estimates**: Supera expectativas (positivo)
+                    - **Miss estimates**: No alcanza expectativas (negativo)
+                    - **Guide higher**: Aumenta guidance (muy positivo)
+                    
+                    **Ventajas:**
+                    - Muestra momentum reciente de ganancias
+                    - Muy seguido por el mercado
+                    - Bueno para estrategias de earnings
+                    
+                    **Desventajas:**
+                    - Extremadamente volátil
+                    - Sensible a estacionalidad
+                    - Las estimaciones pueden ser erróneas
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar resultados trimestrales
+                    - Identificar sorpresas de ganancias
+                    - Trading alrededor de earnings
+                    """,
+                    "ejemplo": "EPS Q1 $1.20, Q2 $1.35 → Crecimiento 12.5%"
+                },
+                
+                "Sales Growth Y/Y": {
+                    "definicion": "**Crecimiento Ventas Interanual** - Cambio vs mismo periodo año anterior",
+                    "calculacion": "(Ventas periodo actual - Ventas mismo periodo año anterior) ÷ Ventas año anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Elimina estacionalidad**: Mejor comparación que Q/Q
+                    - **Tendencia real**: Muestra crecimiento subyacente
+                    - **Comparable**: Mismo periodo estacional
+                    
+                    **Ventajas:**
+                    - Elimina efecto estacional
+                    - Mejor indicador de tendencia
+                    - Ampliamente utilizado
+                    
+                    **Desventajas:**
+                    - Puede enmascarar cambios recientes
+                    - Menos frecuente que Q/Q
+                    - Sensible a eventos únicos anuales
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar crecimiento real
+                    - Comparar performance anual
+                    - Análisis de tendencias fundamentales
+                    """,
+                    "ejemplo": "Ventas Q2 2024 $300M, Q2 2023 $250M → Crecimiento 20%"
+                },
+                
+                "EPS Growth Y/Y": {
+                    "definicion": "**Crecimiento EPS Interanual** - Cambio ganancias vs mismo periodo año anterior",
+                    "calculacion": "(EPS periodo actual - EPS mismo periodo año anterior) ÷ EPS año anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Crecimiento orgánico**: Mejora en operaciones
+                    - **Decrecimiento**: Problemas operativos o comparación difícil
+                    - **Consistencia**: Crecimiento sostenido es positivo
+                    
+                    **Ventajas:**
+                    - Elimina estacionalidad
+                    - Mejor indicador de tendencia de ganancias
+                    - Menos volátil que Q/Q
+                    
+                    **Desventajas:**
+                    - Puede estar afectado por eventos únicos
+                    - No considera cambios recientes
+                    - Sensible a base de comparación
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar crecimiento real de ganancias
+                    - Comparar con expectativas
+                    - Análisis de calidad de crecimiento
+                    """,
+                    "ejemplo": "EPS Q2 2024 $1.50, Q2 2023 $1.25 → Crecimiento 20%"
+                },
+                
+                "Revenue Growth (ttm)": {
+                    "definicion": "**Crecimiento de Ingresos últimos 12 meses** - Cambio vs mismo periodo anterior",
+                    "calculacion": "(Ventas ttm - Ventas ttm año anterior) ÷ Ventas ttm año anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Muestra tendencia**: Crecimiento en los últimos 12 meses
+                    - **Menos volátil**: Que trimestral
+                    - **Visión actualizada**: Pero con perspectiva
+                    
+                    **Ventajas:**
+                    - Combina actualidad con estabilidad
+                    - Menos volátil que trimestral
+                    - Bueno para análisis fundamental
+                    
+                    **Desventajas:**
+                    - Puede enmascarar cambios recientes
+                    - Menos frecuente que trimestral
+                    - Sensible a eventos pasados
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar crecimiento reciente con perspectiva
+                    - Comparar con competidores
+                    - Análisis de momentum fundamental
+                    """,
+                    "ejemplo": "Ventas ttm $1.2B, ttm año anterior $1.0B → Crecimiento 20%"
+                },
+                
+                "EPS Growth (ttm)": {
+                    "definicion": "**Crecimiento EPS últimos 12 meses** - Cambio ganancias vs mismo periodo anterior",
+                    "calculacion": "(EPS ttm - EPS ttm año anterior) ÷ EPS ttm año anterior × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Crecimiento sostenido**: Positivo para valoración
+                    - **Volátil**: Resultados inconsistentes
+                    - **Decreciente**: Posibles problemas
+                    
+                    **Ventajas:**
+                    - Visión actualizada con perspectiva
+                    - Menos volátil que trimestral
+                    - Bueno para análisis de valoración
+                    
+                    **Desventajas:**
+                    - Puede estar afectado por eventos pasados
+                    - Menos frecuente que trimestral
+                    - Sensible a base de comparación
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar crecimiento reciente de ganancias
+                    - Calcular ratios de crecimiento
+                    - Análisis fundamental para inversión
+                    """,
+                    "ejemplo": "EPS ttm $5.00, ttm año anterior $4.00 → Crecimiento 25%"
+                }
+            }
+            
+            for metrica, detalles in metricas.items():
+                with st.expander(f"**{metrica}**"):
+                    st.write(f"**📖 DEFINICIÓN:** {detalles['definicion']}")
+                    st.write(f"**🧮 CÁLCULO:** {detalles['calculacion']}")
+                    st.markdown("**📊 INTERPRETACIÓN DETALLADA:**")
+                    st.write(detalles['interpretacion'])
+                    if 'ejemplo' in detalles:
+                        st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
+
+        elif categoria == "📊 INDICADORES TÉCNICOS (10 métricas)":
+            st.subheader("📊 INDICADORES TÉCNICOS - 10 Métricas")
+            
+            metricas = {
+                "Beta": {
+                    "definicion": "**Volatilidad vs Mercado** - Sensibilidad de la acción vs benchmark",
+                    "calculacion": "Covarianza(Acción, Mercado) ÷ Varianza(Mercado)",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<0.8**: Defensivo (menos volátil que mercado)
+                    - **0.8-1.2**: Neutral (similar volatilidad)
+                    - **>1.2**: Agresivo (más volátil que mercado)
+                    - **Negativo**: Se mueve en dirección opuesta (raro)
+                    
+                    **Ventajas:**
+                    - Mide riesgo sistemático
+                    - Útil para construcción de carteras
+                    - Base para modelo CAPM
+                    
+                    **Desventajas:**
+                    - Basado en datos históricos
+                    - Asume distribuciones normales
+                    - Puede cambiar con el tiempo
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar riesgo vs recompensa esperada
+                    - Construcción de carteras diversificadas
+                    - Cálculo de costo de capital
+                    """,
+                    "ejemplo": "Beta 1.5: si mercado ±10%, acción ±15% en promedio"
+                },
+                
+                "RSI (14)": {
+                    "definicion": "**Índice de Fuerza Relativa** - Oscilador de momentum",
+                    "calculacion": "100 - (100 ÷ (1 + (Ganancia promedio ÷ Pérdida promedio)))",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **>70**: Sobrecomprado (posible corrección)
+                    - **<30**: Sobrevendido (posible rebote)
+                    - **50**: Neutral
+                    - **Divergencias**: Señales fuertes
+                    
+                    **Ventajas:**
+                    - Identifica condiciones extremas
+                    - Fácil de interpretar
+                    - Ampliamente seguido
+                    
+                    **Desventajas:**
+                    - Puede dar señales prematuras en tendencias fuertes
+                    - Menos efectivo en mercados laterales
+                    - Parámetro dependiente (14 períodos típico)
+                    
+                    **¿Para qué sirve?**
+                    - Identificar puntos de entrada/salida
+                    - Confirmar momentum
+                    - Detectar posibles reversiones
+                    """,
+                    "ejemplo": "RSI 75 → condición sobrecomprada, posible corrección"
+                },
+                
+                "Volatility": {
+                    "definicion": "**Volatilidad** - Desviación estándar de rendimientos",
+                    "calculacion": "Desviación estándar(rendimientos diarios) × √252",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<20%**: Baja volatilidad (estable)
+                    - **20-40%**: Volatilidad media
+                    - **>40%**: Alta volatilidad (riesgosa)
+                    - **>80%**: Extremadamente volátil
+                    
+                    **Ventajas:**
+                    - Mide riesgo total
+                    - Base para muchos modelos
+                    - Fácil de comparar
+                    
+                    **Desventajas:**
+                    - Asume distribuciones normales
+                    - No diferencia entre riesgo arriba/abajo
+                    - Basado en histórico
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar riesgo de la inversión
+                    - Dimensionar posiciones
+                    - Comparar con rendimiento esperado
+                    """,
+                    "ejemplo": "Volatilidad 30% → movimientos típicos de ±30% anuales"
+                },
+                
+                "ATR": {
+                    "definicion": "**Average True Range** - Volatilidad basada en rangos de trading",
+                    "calculacion": "Media móvil de True Range (máx(alto-bajo, |alto-cierre anterior|, |bajo-cierre anterior|))",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto**: Alta volatilidad intradía
+                    - **Bajo**: Baja volatilidad intradía
+                    - **Creciente**: Aumento volatilidad
+                    - **Decreciente**: Disminución volatilidad
+                    
+                    **Ventajas:**
+                    - Considera gaps de precios
+                    - Mejor que volatilidad basada solo en cierres
+                    - Útil para stops y targets
+                    
+                    **Desventajas:**
+                    - No direccional
+                    - Depende del período elegido
+                    - Menos conocido que volatilidad estándar
+                    
+                    **¿Para qué sirve?**
+                    - Colocar stops loss dinámicos
+                    - Evaluar condiciones de trading
+                    - Gestión de riesgo intradía
+                    """,
+                    "ejemplo": "ATR $2.50 → movimiento intradía típico de $2.50"
+                },
+                
+                "SMA 20": {
+                    "definicion": "**Media Móvil Simple 20 días** - Tendencia corto plazo",
+                    "calculacion": "Suma últimos 20 cierres ÷ 20",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Precio > SMA**: Tendencia alcista
+                    - **Precio < SMA**: Tendencia bajista
+                    - **Cruces**: Posibles cambios de tendencia
+                    - **Soporte/Resistencia**: Niveles importantes
+                    
+                    **Ventajas:**
+                    - Suaviza el ruido
+                    - Fácil de calcular e interpretar
+                    - Ampliamente usado
+                    
+                    **Desventajas:**
+                    - Retraso (lagging indicator)
+                    - Menos efectivo en mercados laterales
+                    - Parámetro dependiente
+                    
+                    **¿Para qué sirve?**
+                    - Identificar tendencias
+                    - Señales de compra/venta
+                    - Niveles de soporte/resistencia
+                    """,
+                    "ejemplo": "Precio $105, SMA20 $100 → tendencia alcista corto plazo"
+                },
+                
+                "SMA 50": {
+                    "definicion": "**Media Móvil Simple 50 días** - Tendencia medio plazo",
+                    "calculacion": "Suma últimos 50 cierres ÷ 50",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Tendencia intermedia**: Más suave que SMA20
+                    - **Cruces con SMA20**: Señales de momentum
+                    - **Soporte/Resistencia**: Niveles más fuertes
+                    
+                    **Ventajas:**
+                    - Menos ruido que SMA20
+                    - Mejor para tendencias intermedias
+                    - Menos señales falsas
+                    
+                    **Desventajas:**
+                    - Más retraso que SMA20
+                    - Puede perder movimientos rápidos
+                    - Parámetro fijo
+                    
+                    **¿Para qué sirve?**
+                    - Confirmar tendencias
+                    - Filtrar señales de corto plazo
+                    - Análisis de momentum intermedio
+                    """,
+                    "ejemplo": "SMA20 > SMA50 → momentum alcista confirmado"
+                },
+                
+                "SMA 200": {
+                    "definicion": "**Media Móvil Simple 200 días** - Tendencia largo plazo",
+                    "calculacion": "Suma últimos 200 cierres ÷ 200",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Tendencia principal**: Bull market vs Bear market
+                    - **Soporte/Resistencia mayor**: Nivel muy importante
+                    - **Golden Cross/Death Cross**: Señales mayores
+                    
+                    **Ventajas:**
+                    - Define tendencia principal
+                    - Muy seguido por instituciones
+                    - Señales fuertes y confiables
+                    
+                    **Desventajas:**
+                    - Mucho retraso
+                    - Puede perder grandes movimientos
+                    - Menos útil para trading corto
+                    
+                    **¿Para qué sirve?**
+                    - Determinar tendencia principal
+                    - Señales de inversión (no trading)
+                    - Análisis de largo plazo
+                    """,
+                    "ejemplo": "Precio > SMA200 → tendencia alcista principal"
+                },
+                
+                "Volume": {
+                    "definicion": "**Volumen** - Acciones negociadas en el período",
+                    "calculacion": "Número total de acciones negociadas",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto volumen**: Confirmación de movimiento
+                    - **Bajo volumen**: Falta de convicción
+                    - **Volume spikes**: Eventos importantes
+                    - **Divergencias**: Señales de debilidad
+                    
+                    **Ventajas:**
+                    - Confirma price action
+                    - Indica interés institucional
+                    - Detecta acumulación/distribución
+                    
+                    **Desventajas:**
+                    - No da señales por sí solo
+                    - Puede ser manipulado en acciones pequeñas
+                    - Varía por liquidez de la acción
+                    
+                    **¿Para qué sirve?**
+                    - Confirmar rupturas de soporte/resistencia
+                    - Detectar interés institucional
+                    - Identificar posibles reversiones
+                    """,
+                    "ejemplo": "Ruptura con alto volumen → señal más confiable"
+                },
+                
+                "Avg Volume": {
+                    "definicion": "**Volumen Promedio** - Volumen medio histórico",
+                    "calculacion": "Media volumen últimos 20-30 días",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Volume > Avg**: Interés inusual
+                    - **Volume < Avg**: Poco interés
+                    - **Cambios en avg volume**: Cambio en liquidez/perfil
+                    
+                    **Ventajas:**
+                    - Proporciona contexto
+                    - Detecta anomalías
+                    - Útil para screening
+                    
+                    **Desventajas:**
+                    - Basado en histórico
+                    - Puede cambiar estructuralmente
+                    - No considera eventos conocidos
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar liquidez relativa
+                    - Detectar interés inusual
+                    - Filtrar acciones por liquidez
+                    """,
+                    "ejemplo": "Volume actual 2M, Avg Volume 1M → interés inusual"
+                },
+                
+                "Rel Volume": {
+                    "definicion": "**Volumen Relativo** - Volumen actual vs promedio",
+                    "calculacion": "Volume actual ÷ Avg Volume",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<0.5**: Muy bajo volumen
+                    - **0.5-1.5**: Volumen normal
+                    - **1.5-3.0**: Alto volumen
+                    - **>3.0**: Volumen muy alto
+                    
+                    **Ventajas:**
+                    - Normalizado y comparable
+                    - Fácil de interpretar
+                    - Bueno para screening
+                    
+                    **Desventajas:**
+                    - Depende del período de avg volume
+                    - Puede dar falsas señales en eventos conocidos
+                    - No considera dirección del movimiento
+                    
+                    **¿Para qué sirve?**
+                    - Identificar acciones con volumen inusual
+                    - Detectar acumulación/distribución
+                    - Screening para oportunidades
+                    """,
+                    "ejemplo": "Rel Volume 2.5 → volumen 2.5x el normal, interés inusual"
+                }
+            }
+            
+            for metrica, detalles in metricas.items():
+                with st.expander(f"**{metrica}**"):
+                    st.write(f"**📖 DEFINICIÓN:** {detalles['definicion']}")
+                    st.write(f"**🧮 CÁLCULO:** {detalles['calculacion']}")
+                    st.markdown("**📊 INTERPRETACIÓN DETALLADA:**")
+                    st.write(detalles['interpretacion'])
+                    if 'ejemplo' in detalles:
+                        st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
+
+        elif categoria == "🏢 DATOS CORPORATIVOS (8 métricas)":
+            st.subheader("🏢 DATOS CORPORATIVOS - 8 Métricas")
+            
+            metricas = {
+                "Shares Out": {
+                    "definicion": "**Acciones en Circulación** - Número total de acciones emitidas",
+                    "calculacion": "Acciones comunes emitidas - Acciones en tesorería",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Creciente**: Dilución (emisiones)
+                    - **Decreciente**: Recompra de acciones
+                    - **Estable**: Política conservadora
+                    
+                    **Ventajas:**
+                    - Base para cálculo por acción
+                    - Muestra política de capital
+                    - Afecta valoración
+                    
+                    **Desventajas:**
+                    - No considera clases diferentes
+                    - Puede incluir acciones restringidas
+                    - No muestra float real
+                    
+                    **¿Para qué sirve?**
+                    - Calcular market cap
+                    - Evaluar políticas de capital
+                    - Analizar dilución/recompra
+                    """,
+                    "ejemplo": "10 millones de acciones en circulación"
+                },
+                
+                "Float": {
+                    "definicion": "**Acciones Flotantes** - Acciones disponibles para trading público",
+                    "calculacion": "Shares Out - Acciones restringidas (insiders, control)",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Float pequeño**: Alta volatilidad posible
+                    - **Float grande**: Más liquidez
+                    - **Float vs Shares Out**: Grado de control insider
+                    
+                    **Ventajas:**
+                    - Mejor indicador de liquidez real
+                    - Muestra concentración de propiedad
+                    - Útil para análisis técnico
+                    
+                    **Desventajas:**
+                    - Los datos pueden ser estimados
+                    - Puede cambiar con el tiempo
+                    - No considera bloqueos regulatorios
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar liquidez real
+                    - Analizar riesgo de manipulación
+                    - Gestión de tamaño de posición
+                    """,
+                    "ejemplo": "Shares Out 10M, Float 8M → 80% disponible para trading"
+                },
+                
+                "Insider Own": {
+                    "definicion": "**Propiedad Insider** - % acciones poseídas por directivos y consejo",
+                    "calculacion": "Acciones de insiders ÷ Shares Out × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto (>10%)**: Alineación con accionistas
+                    - **Bajo (<5%)**: Posible falta de alineación
+                    - **Muy alto (>30%)**: Control concentrado
+                    
+                    **Ventajas:**
+                    - Mide alineación de intereses
+                    - Buen predictor de performance
+                    - Refleja confianza del management
+                    
+                    **Desventajas:**
+                    - No considera tipos de acciones
+                    - Puede incluir holdings pasivos
+                    - Datos con retraso
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar gobierno corporativo
+                    - Analizar alineación de intereses
+                    - Detectar posibles conflictos
+                    """,
+                    "ejemplo": "Insiders poseen 15% de las acciones → buena alineación"
+                },
+                
+                "Insider Trans": {
+                    "definicion": "**Transacciones Insider** - Compras y ventas de directivos",
+                    "calculacion": "Net buying/selling de insiders en período",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Net buying**: Confianza en el futuro
+                    - **Net selling**: Puede ser normal (diversificación) o preocupante
+                    - **Patrones**: Compras consistentes son muy positivas
+                    
+                    **Ventajas:**
+                    - Información privilegiada (legal)
+                    - Muy seguido por el mercado
+                    - Buen predictor de performance
+                    
+                    **Desventajas:**
+                    - Las ventas pueden ser por razones personales
+                    - Datos con retraso (form 4)
+                    - Puede ser manipulado con timing
+                    
+                    **¿Para qué sirve?**
+                    - Confirmar tesis de inversión
+                    - Detectar posibles problemas
+                    - Señales de confianza del management
+                    """,
+                    "ejemplo": "CEO compró 50,000 acciones → señal muy positiva"
+                },
+                
+                "Inst Own": {
+                    "definicion": "**Propiedad Institucional** - % acciones poseídas por fondos e instituciones",
+                    "calculacion": "Acciones de instituciones ÷ Shares Out × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Alto (>60%)**: Aprobación institucional
+                    - **Bajo (<30%)**: Poco seguimiento institucional
+                    - **Creciente**: Mayor interés profesional
+                    
+                    **Ventajas:**
+                    - Mapeo de interés profesional
+                    - Indica calidad de la empresa
+                    - Refleja liquidez institucional
+                    
+                    **Desventajas:**
+                    - Instituciones pueden ser wrong
+                    - Datos trimestrales con retraso
+                    - No diferencia entre tipos de instituciones
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar calidad de la empresa
+                    - Analizar seguimiento profesional
+                    - Detectar cambios en percepción
+                    """,
+                    "ejemplo": "70% propiedad institucional → buena aprobación profesional"
+                },
+                
+                "Inst Trans": {
+                    "definicion": "**Transacciones Institucionales** - Compras/ventas de fondos",
+                    "calculacion": "Net buying/selling de instituciones en período",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Net buying**: Aprobación profesional
+                    - **Net selling**: Preocupación profesional
+                    - **Cambios bruscos**: Señales fuertes
+                    - **Calidad instituciones**: Importa quién compra/vende
+                    
+                    **Ventajas:**
+                    - Muestra sentiment profesional
+                    - Datos de gestores sofisticados
+                    - Puede anticipar movimientos
+                    
+                    **Desventajas:**
+                    - Datos con retraso (13F trimestral)
+                    - Agregado, no detalle por institución
+                    - Puede ser momentum following
+                    
+                    **¿Para qué sirve?**
+                    - Confirmar tesis de inversión
+                    - Seguir smart money
+                    - Detectar cambios en percepción profesional
+                    """,
+                    "ejemplo": "Fondos value reconocidos comprando → señal positiva"
+                },
+                
+                "Short Float": {
+                    "definicion": "**Short Interest** - % acciones vendidas en corto",
+                    "calculacion": "Acciones vendidas en corto ÷ Float × 100",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **Bajo (<5%)**: Poco pesimismo
+                    - **Moderado (5-10%)**: Escepticismo normal
+                    - **Alto (10-20%)**: Significativo pesimismo
+                    - **Muy alto (>20%)**: Posible short squeeze
+                    
+                    **Ventajas:**
+                    - Mapeo de sentiment negativo
+                    - Identifica posibles squeezes
+                    - Refleja controversia
+                    
+                    **Desventajas:**
+                    - Los shorts pueden tener razón
+                    - Datos con retraso (semanal/biweekly)
+                    - No considera timing de shorts
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar controversia sobre la acción
+                    - Identificar oportunidades de squeeze
+                    - Analizar riesgo de covering rallies
+                    """,
+                    "ejemplo": "Short Float 25% → alto pesimismo, posible squeeze"
+                },
+                
+                "Short Ratio": {
+                    "definicion": "**Días para Cubrir** - Tiempo para cubrir posiciones cortas",
+                    "calculacion": "Acciones vendidas en corto ÷ Volumen promedio diario",
+                    "interpretacion": """
+                    **¿Qué significa?**
+                    - **<3 días**: Bajo riesgo de squeeze
+                    - **3-7 días**: Riesgo moderado
+                    - **>7 días**: Alto riesgo de squeeze
+                    - **>10 días**: Riesgo muy alto
+                    
+                    **Ventajas:**
+                    - Mejor que Short Float solo
+                    - Considera liquidez
+                    - Buen predictor de squeeze potential
+                    
+                    **Desventajas:**
+                    - Basado en volumen histórico
+                    - Puede cambiar rápidamente
+                    - No considera convicción de shorts
+                    
+                    **¿Para qué sirve?**
+                    - Evaluar riesgo de short squeeze
+                    - Analizar dinámica de covering
+                    - Gestión de riesgo en posiciones cortas
+                    """,
+                    "ejemplo": "Short Ratio 12 días → alto riesgo de squeeze"
+                }
+            }
+            
+            for metrica, detalles in metricas.items():
+                with st.expander(f"**{metrica}**"):
+                    st.write(f"**📖 DEFINICIÓN:** {detalles['definicion']}")
+                    st.write(f"**🧮 CÁLCULO:** {detalles['calculacion']}")
+                    st.markdown("**📊 INTERPRETACIÓN DETALLADA:**")
+                    st.write(detalles['interpretacion'])
+                    if 'ejemplo' in detalles:
+                        st.info(f"**🔢 EJEMPLO:** {detalles['ejemplo']}")
+
+        elif categoria == "⚡ MÉTRICAS AVANZADAS DE RIESGO":
+            st.subheader("⚡ Métricas Avanzadas de Riesgo y Rendimiento")
+            st.write("**Métricas sofisticadas para análisis profesional**")
+            
+            metricas_avanzadas = {
+                "Beta (Riesgo Sistemático)": {
+                    "definicion": "Mide la volatilidad de una acción en relación con el mercado completo.",
+                    "formula": "Covarianza(Acción, Mercado) / Varianza(Mercado)",
+                    "interpretacion": "**<0.8**: Defensivo | **0.8-1.2**: Neutral | **>1.2**: Agresivo",
+                    "uso": "Para determinar qué tan sensible es una acción a los movimientos del mercado."
+                },
+                "Alpha": {
+                    "definicion": "Rendimiento excedente sobre lo esperado dado su nivel de riesgo (Beta).",
+                    "formula": "Rendimiento Real - (Beta × Rendimiento Mercado)",
+                    "interpretacion": "**Alpha > 0**: Supera expectativas | **Alpha < 0**: No alcanza expectativas",
+                    "uso": "Medir la habilidad del gestor o el desempeño anormal."
+                },
+                "Sharpe Ratio": {
+                    "definicion": "Rendimiento excedente por unidad de riesgo total.",
+                    "formula": "(Rendimiento - Tasa Libre Riesgo) / Volatilidad",
+                    "interpretacion": "**>1.0**: Excelente | **0.5-1.0**: Bueno | **<0.5**: Pobre",
+                    "uso": "Comparar fondos o estrategias ajustando por riesgo total."
+                },
+                "Sortino Ratio": {
+                    "definicion": "Similar a Sharpe pero solo considera riesgo bajista (desviación negativa).",
+                    "formula": "(Rendimiento - Tasa Libre Riesgo) / Volatilidad Bajista",
+                    "interpretacion": "**>2.0**: Excelente | **1.0-2.0**: Bueno | **<1.0**: Mejorable",
+                    "uso": "Mejor métrica cuando preocupa más las pérdidas que la volatilidad general."
+                },
+                "Treynor Ratio": {
+                    "definicion": "Rendimiento excedente por unidad de riesgo sistemático (Beta).",
+                    "formula": "(Rendimiento - Tasa Libre Riesgo) / Beta",
+                    "interpretacion": "Cuanto mayor mejor. Comparar con benchmark del sector.",
+                    "uso": "Para carteras diversificadas donde el riesgo no sistemático es mínimo."
+                },
+                "Information Ratio": {
+                    "definicion": "Rendimiento activo por unidad de riesgo activo (tracking error).",
+                    "formula": "(Rendimiento Cartera - Rendimiento Benchmark) / Tracking Error",
+                    "interpretacion": "**>0.5**: Buen gestor activo | **>0.75**: Excelente gestor",
+                    "uso": "Evaluar gestión activa vs benchmark."
+                }
+            }
+            
+            for metrica, detalles in metricas_avanzadas.items():
+                st.markdown(f"### {metrica}")
+                col1, col2 = st.columns([1, 1])
+                
+                with col1:
+                    st.write(f"**📖 Definición**: {detalles['definicion']}")
+                    st.write(f"**🧮 Fórmula**: {detalles['formula']}")
+                
+                with col2:
+                    st.write(f"**📊 Interpretación**: {detalles['interpretacion']}")
+                    st.write(f"**🎯 Uso Práctico**: {detalles['uso']}")
+                
+                # Ejemplos prácticos
+                if "Beta" in metrica:
+                    st.info("**Ejemplo**: Una acción con Beta 1.5 subirá 15% si el mercado sube 10%, pero caerá 15% si el mercado cae 10%")
+                elif "Sharpe" in metrica:
+                    st.info("**Ejemplo**: Sharpe 1.2 significa que por cada 1% de riesgo, genera 1.2% de rendimiento excedente")
+                elif "Alpha" in metrica:
+                    st.info("**Ejemplo**: Alpha 0.05 significa que superó en 5% al rendimiento esperado dado su riesgo")
+                
+                st.markdown("---")
+
+        else:  # Consejos Prácticos de Inversión
+            st.subheader("💡 Consejos Prácticos de Inversión")
+            st.write("**Sabiduría probada para tomar mejores decisiones**")
+            
+            # Consejos organizados por categoría
+            categorias_consejos = {
+                "🔍 Investigación y Análisis": [
+                    "**Conoce el negocio**: Invierte solo en empresas que entiendas completamente",
+                    "**Análisis competitivo**: Evalúa ventajas competitivas duraderas (moats)",
+                    "**Sector y tendencias**: Invierte en sectores con tailwinds, no headwinds",
+                    "**Calidad management**: Investiga el track record del equipo directivo",
+                    "**Múltiples métricas**: Nunca bases decisiones en una sola métrica"
+                ],
+                "📈 Gestión de Riesgo": [
+                    "**Diversificación inteligente**: No sobre-diversifiques, pero tampoco pongas todos los huevos en una canasta",
+                    "**Tamaño de posición**: Nunca arriesgues más del 5% de tu cartera en una sola idea",
+                    "**Stop losses mentales**: Define tu precio de venta antes de comprar",
+                    "**Riesgo asimétrico**: Busca oportunidades con upside potencial > downside risk",
+                    "**Liquidez**: Considera siempre cuán fácil puedes salir de la inversión"
+                ],
+                "⏳ Psicología y Disciplina": [
+                    "**Paciencia**: El tiempo en el mercado > timing del mercado",
+                    "**Control emocional**: El miedo y la codicia son tus peores enemigos",
+                    "**Independencia**: Piensa por ti mismo, no sigas la manada",
+                    "**Humildad**: Reconoce cuando te equivocas y ajusta",
+                    "**Consistencia**: Sigue tu proceso invariablemente"
+                ],
+                "💰 Valoración y Timing": [
+                    "**Margen de seguridad**: Compra con descuento al valor intrínseco",
+                    "**Ciclos de mercado**: Entiende en qué fase del ciclo estás",
+                    "**Valoración relativa**: Compara siempre con alternativas",
+                    "**Catalizadores**: Identifica eventos que puedan mover el precio",
+                    "**Patience**: Mejor oportunidad perdida que mala inversión"
+                ],
+                "📚 Educación Continua": [
+                    "**Aprendizaje constante**: Los mercados evolucionan, tú también debes hacerlo",
+                    "**Historia financiera**: Estudia burbujas y cracks pasados",
+                    "**Mentes brillantes**: Lee a Buffett, Munger, Lynch, Graham",
+                    "**Pensamiento crítico**: Cuestiona todo, especialmente tus propias ideas",
+                    "**Red de conocimiento**: Rodéate de personas más inteligentes que tú"
+                ]
+            }
+            
+            for categoria, consejos in categorias_consejos.items():
+                st.markdown(f"### {categoria}")
+                for consejo in consejos:
+                    st.write(f"• {consejo}")
+                st.markdown("---")
+            
+            # Frases célebres de inversión
+            st.markdown("### 💬 Sabiduría de los Grandes Inversores")
+            frases = [
+                "**Warren Buffett**: 'Sé temeroso cuando otros son codiciosos, y codicioso cuando otros son temerosos.'",
+                "**Charlie Munger**: 'La inversión no es fácil. Cualquiera que crea que es fácil es un tonto.'",
+                "**Peter Lynch**: 'Detrás de cada acción hay una empresa. Descubre qué está haciendo esa empresa.'",
+                "**Benjamin Graham**: 'En el corto plazo, el mercado es una máquina de votación. En el largo plazo, es una máquina de ponderación.'",
+                "**Philip Fisher**: 'El stock market está lleno de individuos que saben el precio de todo, pero el valor de nada.'",
+                "**John Bogle**: 'No busques la aguja en el pajar. Simplemente compra el pajar.'"
+            ]
+            
+            for frase in frases:
+                st.success(frase)
 
         # Sección de libros recomendados
         st.markdown("---")
@@ -5222,7 +6788,7 @@ elif st.session_state.seccion_actual == "fundamentales":
         
         st.write("""
         **💰 VALORACIÓN Y MERCADO (18 métricas)**
-        - Market Cap, P/E, Forward P/E, PEG, P/S, P/B, P/C, P/FCF
+        - Market Cap, P/E, Forward P/E, PEG, P/S, P/B, P/FCF
         - EV/EBITDA, EV/Sales, EV/FCF, EPS (ttm), EPS next Y, EPS next Q
         - EPS this Y, EPS next 5Y, EPS past 5Y, Book Value/Share
         
@@ -5247,7 +6813,7 @@ elif st.session_state.seccion_actual == "fundamentales":
         
         **📊 INDICADORES TÉCNICOS (10 métricas)**
         - Beta, RSI (14), Volatility W, Volatility M, ATR
-        - SMA 20, SMA 50, SMA 200, 52W High, 52W Low
+        - SMA 20, SMA 50, SMA 200, Volume, Avg Volume, Rel Volume
         
         **🏢 DATOS CORPORATIVOS (8 métricas)**
         - Shares Out, Float, Insider Own, Insider Trans
@@ -10268,3 +11834,5 @@ st.markdown("""
 <br><em>Esta aplicación es con fines educativos. No constituye asesoramiento financiero.</em>
 </p>
 """, unsafe_allow_html=True)
+
+st.write("🔥 ESTE ES UN TEST - CAMBIOS VISIBLES")
